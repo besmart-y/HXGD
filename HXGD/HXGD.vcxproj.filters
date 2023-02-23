@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="LayoutBar">
+      <UniqueIdentifier>{6a163467-fd63-4966-9546-69bac07415cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsView">
+      <UniqueIdentifier>{ef7687c1-2573-49f9-9e77-44ef43484423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToolFunctions">
+      <UniqueIdentifier>{ae7ccdb1-6d5e-40e8-9a35-4025817d6b8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EuresysBoard">
+      <UniqueIdentifier>{eac28113-9ccb-440c-abf6-759a05efaf0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{34013222-29f9-4cdc-99f1-7ac045f2e52c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CSV">
+      <UniqueIdentifier>{ff33837e-2592-489c-a7a4-44d730110ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Login">
+      <UniqueIdentifier>{a16fd347-67ca-4aff-ba8d-56adc254865d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="HXGD.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtUic Include="HXGD.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtMoc Include="HXGD.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="HXGD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m_GraphicsView.cpp">
+      <Filter>GraphicsView</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolFunction.cpp">
+      <Filter>ToolFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="m_EuresysBoard.cpp">
+      <Filter>EuresysBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="HXGD_layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HXGD_recipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HXGD_cam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imagewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Params.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m_TCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m_Thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m_CSV.cpp">
+      <Filter>CSV</Filter>
+    </ClCompile>
+    <ClCompile Include="HXGD_user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LayoutBar.hpp">
+      <Filter>LayoutBar</Filter>
+    </QtMoc>
+    <QtMoc Include="LayoutInfo.hpp">
+      <Filter>LayoutBar</Filter>
+    </QtMoc>
+    <QtMoc Include="m_GraphicsView.h">
+      <Filter>GraphicsView</Filter>
+    </QtMoc>
+    <QtMoc Include="m_EuresysBoard.h">
+      <Filter>EuresysBoard</Filter>
+    </QtMoc>
+    <QtMoc Include="imagewidget.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="m_TCP.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="m_Thread.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="m_CSV.h">
+      <Filter>CSV</Filter>
+    </QtMoc>
+    <QtMoc Include="Login.hpp">
+      <Filter>Login</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ToolFunction.h">
+      <Filter>ToolFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Params.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HXGD.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\x64\Release\ConfigureXML\PanelLayout.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="..\x64\Release\ConfigureXML\RecipeInfo.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Login.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+</Project>

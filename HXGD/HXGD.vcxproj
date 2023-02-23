@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A979B14E-6718-4A31-BC83-18CC198BAF5A}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>msvc2017_64_5.14.2</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>msvc2017_64_5.14.2</QtInstall>
+    <QtModules>core;xml;sql;network;gui;widgets;concurrent</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>E:\yong\opencv\opencv4.5\opencv\build\include\opencv2;E:\yong\opencv\opencv4.5\opencv\build\include;D:\Program Files %28x86%29\Euresys\MultiCam\Include;E:\Qt\Qt5.14.2\5.14.2\msvc2017_64\include;D:\Program Files %28x86%29\opencv\opencv4.5\build\include\opencv2;D:\Program Files %28x86%29\opencv\opencv4.5\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\yong\opencv\opencv4.5\opencv\build\x64\vc15\lib;D:\yong\opencv\opencv4.5\opencv\build\x64\vc15\lib;D:\Program Files %28x86%29\Euresys\MultiCam\Lib\amd64;E:\Qt\Qt5.14.2\5.14.2\msvc2017_64\lib;D:\Program Files %28x86%29\opencv\opencv4.5\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>opencv_world450.lib;MultiCam.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="HXGD_cam.cpp" />
+    <ClCompile Include="HXGD_layout.cpp" />
+    <ClCompile Include="HXGD_recipe.cpp" />
+    <ClCompile Include="HXGD_user.cpp" />
+    <ClCompile Include="imagewidget.cpp" />
+    <ClCompile Include="m_CSV.cpp" />
+    <ClCompile Include="m_EuresysBoard.cpp" />
+    <ClCompile Include="m_GraphicsView.cpp" />
+    <ClCompile Include="m_TCP.cpp" />
+    <ClCompile Include="m_Thread.cpp" />
+    <ClCompile Include="Params.cpp" />
+    <ClCompile Include="ToolFunction.cpp" />
+    <QtRcc Include="HXGD.qrc" />
+    <QtUic Include="HXGD.ui" />
+    <QtMoc Include="HXGD.h" />
+    <ClCompile Include="HXGD.cpp" />
+    <ClCompile Include="main.cpp" />
+    <QtUic Include="Login.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LayoutBar.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LayoutInfo.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="m_GraphicsView.h" />
+    <QtMoc Include="m_EuresysBoard.h" />
+    <QtMoc Include="imagewidget.h" />
+    <QtMoc Include="m_TCP.h" />
+    <QtMoc Include="m_Thread.h" />
+    <QtMoc Include="m_CSV.h" />
+    <QtMoc Include="Login.hpp" />
+    <ClInclude Include="Params.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ToolFunction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HXGD.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\x64\Release\ConfigureXML\PanelLayout.xml" />
+    <Xml Include="..\x64\Release\ConfigureXML\RecipeInfo.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
