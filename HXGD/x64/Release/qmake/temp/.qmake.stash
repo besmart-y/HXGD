@@ -1,0 +1,37 @@
+QMAKE_CXX.QT_COMPILER_STDCXX = 199711L
+QMAKE_CXX.QMAKE_MSC_VER = 1929
+QMAKE_CXX.QMAKE_MSC_FULL_VER = 192930148
+QMAKE_CXX.COMPILER_MACROS = \
+    QT_COMPILER_STDCXX \
+    QMAKE_MSC_VER \
+    QMAKE_MSC_FULL_VER
+QMAKE_CXX.INCDIRS = \
+    E:\\yong\\opencv\\opencv4.5\\opencv\\build\\include\\opencv2 \
+    E:\\yong\\opencv\\opencv4.5\\opencv\\build\\include \
+    "D:\\Program Files (x86)\\Euresys\\MultiCam\\Include" \
+    E:\\Qt\\Qt5.14.2\\5.14.2\\msvc2017_64\\include \
+    "D:\\Program Files (x86)\\opencv\\opencv4.5\\build\\include\\opencv2" \
+    "D:\\Program Files (x86)\\opencv\\opencv4.5\\build\\include" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Tools\\MSVC\\14.29.30133\\include" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Auxiliary\\VS\\include" \
+    "E:\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Auxiliary\\VS\\UnitTest\\include" \
+    "E:\\Windows Kits\\10\\Include\\10.0.19041.0\\um" \
+    "E:\\Windows Kits\\10\\Include\\10.0.19041.0\\shared" \
+    "E:\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt" \
+    "E:\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt" \
+    Include\\um
+QMAKE_CXX.LIBDIRS = \
+    E:\\yong\\opencv\\opencv4.5\\opencv\\build\\x64\\vc15\\lib \
+    D:\\yong\\opencv\\opencv4.5\\opencv\\build\\x64\\vc15\\lib \
+    "D:\\Program Files (x86)\\Euresys\\MultiCam\\Lib\\amd64" \
+    E:\\Qt\\Qt5.14.2\\5.14.2\\msvc2017_64\\lib \
+    "D:\\Program Files (x86)\\opencv\\opencv4.5\\build\\x64\\vc15\\lib" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Tools\\MSVC\\14.29.30133\\lib\\x64" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\lib\\x64" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Auxiliary\\VS\\lib\\x64" \
+    "E:\\Windows Kits\\10\\lib\\10.0.19041.0\\ucrt\\x64" \
+    "E:\\Program Files (x86)\\VS\\ide\\VC\\Auxiliary\\VS\\UnitTest\\lib" \
+    "E:\\Windows Kits\\10\\lib\\10.0.19041.0\\um\\x64" \
+    lib\\um\\x64

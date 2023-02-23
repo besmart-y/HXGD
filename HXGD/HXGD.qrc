@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>icon/expand.png</file>
+        <file>icon/permission.png</file>
+        <file>icon/shrink.png</file>
+        <file>icon/编辑.png</file>
+        <file>icon/布局.png</file>
+        <file>icon/盒子.png</file>
+        <file>icon/加号1.png</file>
+        <file>icon/减号.png</file>
+        <file>icon/历史数据.png</file>
+        <file>icon/配方组.png</file>
+        <file>icon/首页.png</file>
+        <file>icon/搜索查询.png</file>
+        <file>icon/算法.png</file>
+        <file>icon/相机.png</file>
+        <file>icon/照相机.png</file>
+    </qresource>
+</RCC>

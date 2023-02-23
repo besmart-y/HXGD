@@ -1,0 +1,36 @@
+﻿  Reading Qt configuration (E:/Qt/Qt5.14.2/5.14.2/msvc2017_64/bin/qmake)
+  HXGD_cam.cpp
+  HXGD_layout.cpp
+  HXGD_recipe.cpp
+  HXGD_user.cpp
+  imagewidget.cpp
+  m_CSV.cpp
+  m_EuresysBoard.cpp
+  m_GraphicsView.cpp
+  m_TCP.cpp
+  m_Thread.cpp
+  Params.cpp
+  ToolFunction.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  HXGD.cpp
+  main.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  qrc_HXGD.cpp
+  moc_HXGD.cpp
+  moc_LayoutBar.cpp
+  moc_LayoutInfo.cpp
+  moc_m_GraphicsView.cpp
+  moc_m_EuresysBoard.cpp
+  moc_imagewidget.cpp
+  moc_m_TCP.cpp
+  moc_m_Thread.cpp
+  moc_m_CSV.cpp
+  moc_Login.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  HXGD.vcxproj -> D:\TF-Projects\5-HXGD-DZZ\Demo-Project\HXGD-laptop\x64\Release\HXGD.exe
