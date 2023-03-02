@@ -409,7 +409,7 @@ void HXGD::LoadCurrentRecipe()
 						ui.LB_mainRecipeName->setText(currentRecipe.recipeName);
 						ui.LB_mainRecipeID->setText(QString("000%1").arg(currentRecipe.recipeID));
 						ui.LB_recipeCurrentID->setText(QString("000%1").arg(currentRecipe.recipeID));
-
+						ui.LB_recipeCurrentRecipe->setText(QString("%1").arg(currentRecipe.recipeName));
 						break;
 					}
 					j += 1;

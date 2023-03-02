@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alg.cpp" />
     <ClCompile Include="HXGD_cam.cpp" />
     <ClCompile Include="HXGD_layout.cpp" />
     <ClCompile Include="HXGD_recipe.cpp" />
@@ -124,6 +125,7 @@
     <QtMoc Include="m_Thread.h" />
     <QtMoc Include="m_CSV.h" />
     <QtMoc Include="Login.hpp" />
+    <QtMoc Include="Alg.h" />
     <ClInclude Include="Params.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ToolFunction.h" />

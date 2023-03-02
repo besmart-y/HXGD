@@ -50,7 +50,8 @@ class m_GraphicsView : public QGraphicsView
 {
 	Q_OBJECT
 public:
-	m_GraphicsView(QWidget* parent=0);//int width,int height,
+	m_GraphicsView(QWidget* parent = 0);
+	m_GraphicsView(int width,int height,QWidget* parent=0);//int width,int height,
 	~m_GraphicsView();
 	QGraphicsScene* scene;
 private:

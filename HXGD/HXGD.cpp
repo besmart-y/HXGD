@@ -92,7 +92,7 @@ HXGD::HXGD(QWidget *parent)
 	LB_CLIENT_T->setAlignment(Qt::AlignCenter);
 	ui.statusBar->addWidget(LB_CLIENT_T);
 
-
+	
 
 	//ui.statusBar->addWidget(new QSpacerItem(100, 20, QSizePolicy::Expanding));
 	QString path = QApplication::applicationDirPath();
@@ -104,6 +104,9 @@ HXGD::HXGD(QWidget *parent)
 	connect(this, &HXGD::signalWriteCSV, m_csv, &m_CSV::slotWriteCSV);
 	connect(this, &HXGD::signalReadCSV, m_csv, &m_CSV::slotReadCSV);
 
+	hxgdAlg = new HXGDAlg();
+
+	connect(ui.listWidget_Iconpic, &QListWidget::itemDoubleClicked, this,&HXGD::slotListWidgetItemDoubleClicked);
     connect(ui.actionopen_2, &QAction::triggered, this, &HXGD::slotOpenFileDialog);
 	connect(ui.tb_camPage, &QToolButton::clicked, this, [=]()
 		{
@@ -188,8 +191,10 @@ void HXGD::GetCam_1Pic(cv::Mat mat,int camNum)
 	if (board1->m_mat.data)
 	{
 		mainMat[0] = board1->m_mat.clone();
+		//hxgdAlg->SplitImage(mainMat[1], lineScanCam_0);
 		bCam_1Triggered = true;
-
+		
+		ui.listWidget_Iconpic->clear();
 	}
 }
 
@@ -198,8 +203,10 @@ void HXGD::GetCam_2Pic(cv::Mat mat, int camNum)
 	if (board2->m_mat.data)
 	{
 		mainMat[1] = board1->m_mat.clone();
+		//hxgdAlg->SplitImage(mainMat[1], lineScanCam_1);
 		bCam_2Triggered = true;
-
+		
+		ui.listWidget_Iconpic->clear();
 	}
 }
 
@@ -242,10 +249,46 @@ void HXGD::DoJointImgs()
 			cv::resize(tempMat2, tempMat2, cv::Size(tempMat2.cols, tempMat1.rows));
 			//获得拼接图像
 			srcMat = cv::Mat::zeros(cv::Size(tempMat1.cols+tempMat2.cols,tempMat1.rows),CV_8UC1);
+			
 			tempMat1.copyTo(srcMat(cv::Rect(0,0,tempMat1.cols,tempMat1.rows)));
 			tempMat2.copyTo(srcMat(cv::Rect(tempMat1.cols,0,tempMat2.cols,tempMat2.rows)));
+			//抽图
+			hxgdAlg->SplitImage(srcMat, lineScanCam);
+			QListWidgetItem* item1 = new QListWidgetItem();
+			QListWidgetItem* item2 = new QListWidgetItem();
+			QListWidgetItem* item3 = new QListWidgetItem();
+			int w = ui.listWidget_Iconpic->width();
+			m_GraphicsView* tempview1 = new m_GraphicsView(w - 40, w - 160);
+			m_GraphicsView* tempview2 = new m_GraphicsView(w - 40, w - 160);
+			m_GraphicsView* tempview3 = new m_GraphicsView(w - 40, w - 160);
+			tempview1->setAttribute(Qt::WA_TransparentForMouseEvents);//设置当前控件只显示，不做任何消息处理
+			tempview2->setAttribute(Qt::WA_TransparentForMouseEvents);
+			tempview3->setAttribute(Qt::WA_TransparentForMouseEvents);
+			//item->setIcon(QIcon(var));
+			
+			//int h = ui.listWidget_Iconpic->height();
+			item1->setSizeHint(QSize(w - 40, w - 160));
+			item2->setSizeHint(QSize(w - 40, w - 160));
+			item3->setSizeHint(QSize(w - 40, w - 160));
+			ui.listWidget_Iconpic->addItem(item1);
+			ui.listWidget_Iconpic->addItem(item2);
+			ui.listWidget_Iconpic->addItem(item3);
+
+			ui.listWidget_Iconpic->setItemWidget(item1, tempview1);
+			ui.listWidget_Iconpic->setItemWidget(item2, tempview2);
+			ui.listWidget_Iconpic->setItemWidget(item3, tempview3);
+			
 			//1、显示图像
-			ShowMainImg(srcMat);
+			//主-显示CH1-SRC
+			//副1-显示CH2-SRC
+			//副2-显示CH3-SRC
+			//副3-暂存
+			ui.graphicsView_mainview->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH0_SRC));
+			tempview1->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH1_SRC));
+			tempview2->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH2_SRC));
+			ui.listWidget_Iconpic->show();
+
+			//ShowMainImg(srcMat);
 			//2、存图
 			QString picSavePath = g_params.camconfig->camsettings.saveImagePath;
 			if (!QDir(picSavePath).exists())
@@ -279,6 +322,98 @@ void HXGD::ShowMainImg(cv::Mat mat)
 }
 
 
+
+void HXGD::slotListWidgetItemDoubleClicked(QListWidgetItem* item)
+{
+	QWidget* widget = ui.listWidget_Iconpic->itemWidget(item);
+
+	m_GraphicsView* list_view1 = widget->findChild<m_GraphicsView*>("tempview1");
+	m_GraphicsView* list_view2 = widget->findChild<m_GraphicsView*>("tempview2");
+	m_GraphicsView* list_view3 = widget->findChild<m_GraphicsView*>("tempview3");
+	//QListWidgetItem* list_view = widget->findChild<QListWidgetItem*>();
+	iCurrentListWidgetRow = ui.listWidget_Iconpic->currentRow();
+	if (iCurrentListWidgetRow == 0)//CH2_SRC
+	{
+		
+		ui.listWidget_Iconpic->clear();
+
+		/*	cv::resize(src2,src2,cv::Size(512,512));
+			cv::resize(src3,src3,cv::Size(512,512));*/
+		QListWidgetItem* item1 = new QListWidgetItem();
+		QListWidgetItem* item2 = new QListWidgetItem();
+		QListWidgetItem* item3 = new QListWidgetItem();
+		int w = ui.listWidget_Iconpic->width();
+		m_GraphicsView* tempview1 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview2 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview3 = new m_GraphicsView(w - 40, w - 160);
+		tempview1->setAttribute(Qt::WA_TransparentForMouseEvents);//设置当前控件只显示，不做任何消息处理
+		tempview2->setAttribute(Qt::WA_TransparentForMouseEvents);
+		tempview3->setAttribute(Qt::WA_TransparentForMouseEvents);
+		//item->setIcon(QIcon(var));
+		/*int w = ui.listWidget_Iconpic->width();
+		int h = ui.listWidget_Iconpic->height();*/
+		item1->setSizeHint(QSize(w - 40, w - 160));
+		item2->setSizeHint(QSize(w - 40, w - 160));
+		item3->setSizeHint(QSize(w - 40, w - 160));
+		ui.listWidget_Iconpic->addItem(item1);
+		ui.listWidget_Iconpic->addItem(item2);
+		ui.listWidget_Iconpic->addItem(item3);
+
+		ui.listWidget_Iconpic->setItemWidget(item1, tempview1);
+		ui.listWidget_Iconpic->setItemWidget(item2, tempview2);
+		ui.listWidget_Iconpic->setItemWidget(item3, tempview3);
+		ui.graphicsView_mainview->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH1_SRC));
+		tempview1->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH0_SRC));
+		tempview2->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH2_SRC));
+		tempview3->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH2_SRC));
+		ui.listWidget_Iconpic->show();
+		
+	}
+	else if (iCurrentListWidgetRow == 1)//CH3_SRC
+	{
+
+		ui.listWidget_Iconpic->clear();
+
+		/*	cv::resize(src2,src2,cv::Size(512,512));
+			cv::resize(src3,src3,cv::Size(512,512));*/
+		QListWidgetItem* item1 = new QListWidgetItem();
+		QListWidgetItem* item2 = new QListWidgetItem();
+		QListWidgetItem* item3 = new QListWidgetItem();
+		int w = ui.listWidget_Iconpic->width();
+		m_GraphicsView* tempview1 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview2 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview3 = new m_GraphicsView(w - 40, w - 160);
+		tempview1->setAttribute(Qt::WA_TransparentForMouseEvents);//设置当前控件只显示，不做任何消息处理
+		tempview2->setAttribute(Qt::WA_TransparentForMouseEvents);
+		tempview3->setAttribute(Qt::WA_TransparentForMouseEvents);
+		//item->setIcon(QIcon(var));
+		/*int w = ui.listWidget_Iconpic->width();
+		int h = ui.listWidget_Iconpic->height();*/
+		item1->setSizeHint(QSize(w - 40, w - 160));
+		item2->setSizeHint(QSize(w - 40, w - 160));
+		item3->setSizeHint(QSize(w - 40, w - 160));
+		ui.listWidget_Iconpic->addItem(item1);
+		ui.listWidget_Iconpic->addItem(item2);
+		ui.listWidget_Iconpic->addItem(item3);
+
+		ui.listWidget_Iconpic->setItemWidget(item1, tempview1);
+		ui.listWidget_Iconpic->setItemWidget(item2, tempview2);
+		ui.listWidget_Iconpic->setItemWidget(item3, tempview3);
+		ui.graphicsView_mainview->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH1_SRC));
+		tempview1->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH0_SRC));
+		tempview2->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH2_SRC));
+		ui.listWidget_Iconpic->show();
+		ui.listWidget_Iconpic->show();
+	}
+	else if (iCurrentListWidgetRow == 2)
+	{
+
+	}
+	else
+	{
+		return;
+	}
+}
 
 void HXGD::on_pushButton_expand_clicked()
 {
@@ -393,46 +528,80 @@ void HXGD::slotOpenFileDialog()
 		std::vector <cv::String> resultPath;
 		/*cv::String imgPath = cv::format("%s", (selectDir.at(0) + "/*.jpg").toLocal8Bit().constData());
 		cv::glob(imgPath, resultPath, false);*/
-		for each (auto var in selectDir)//resultPath
+		if (selectDir.size() != 3)
 		{
-			//QString s = var.c_str();
-			//split_name = s.split("\\");
-			cv::String s = cv::format("%s", var.toLocal8Bit().constData());
-			cv::Mat src = cv::imread(s);
-			QImage image = ToolClass::Mat2QImage(src);
-			
-			//QImage temp = CAssist::Mat2QImage(src);
-			QListWidgetItem* item = new QListWidgetItem();
-			//item->setIcon(QIcon(var));
-			item->setSizeHint(QSize(210,180));
-			ui.listWidget_Iconpic->addItem(item);
-			m_GraphicsView* tempview = new m_GraphicsView();
-			ui.listWidget_Iconpic->setItemWidget(item, tempview);
-			//cv::Mat m = ToolClass::QImage2Mat(image);
-			tempview->slotShowImg(image);
-			ui.graphicsView_mainview->slotShowImg(image);
-
-
-		/*	if (src.channels() == 3)
-			{
-				cv::cvtColor(src, src, cv::COLOR_BGR2GRAY);
-			}*/
-			//emit signalShowImg(src);
-		/*	ui.graphicsView_mainview->slotShowImg(src);
-			ui.graphicsView1->slotShowImg(src);
-			ui.graphicsView2->slotShowImg(src);
-			ui.graphicsView4->slotShowImg(src);
-			ui.graphicsView5->slotShowImg(src);*/
-		
-		/*	m_GraphicsView* list_view1 = new m_GraphicsView();
-			m_GraphicsView* list_view2 = new m_GraphicsView();
-			QListWidgetItem* list_widget_item = new QListWidgetItem();
-			((QGridLayout*)ui.frame_view->layout())->addWidget(list_view1,2,0,1,1);
-			((QGridLayout*)ui.frame_view->layout())->addWidget(list_view1,2,1,1,1);
-			((QGridLayout*)ui.frame_view->layout())->addWidget(ui.tableWidget_defectInfo,3,0,1,1);*/
-		
+			return;
 		}
+		ui.listWidget_Iconpic->clear();
+		cv::Mat src1 = cv::imread(cv::format("%s", selectDir.at(0).toLocal8Bit().constData()));
+		cv::Mat src2 = cv::imread(cv::format("%s", selectDir.at(1).toLocal8Bit().constData()));
+		cv::Mat src3 = cv::imread(cv::format("%s", selectDir.at(2).toLocal8Bit().constData()));
+		lineScanCam.CH0_SRC = src1;
+		lineScanCam.CH1_SRC = src2;
+		lineScanCam.CH2_SRC = src3;
+	/*	cv::resize(src2,src2,cv::Size(512,512));
+		cv::resize(src3,src3,cv::Size(512,512));*/
+		QListWidgetItem* item1 = new QListWidgetItem();
+		QListWidgetItem* item2 = new QListWidgetItem();
+		QListWidgetItem* item3 = new QListWidgetItem();
+		int w = ui.listWidget_Iconpic->width();
+		m_GraphicsView* tempview1 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview2 = new m_GraphicsView(w - 40, w - 160);
+		m_GraphicsView* tempview3 = new m_GraphicsView(w - 40, w - 160);
+		tempview1->setAttribute(Qt::WA_TransparentForMouseEvents);//设置当前控件只显示，不做任何消息处理
+		tempview2->setAttribute(Qt::WA_TransparentForMouseEvents);
+		tempview3->setAttribute(Qt::WA_TransparentForMouseEvents);
+		tempview1->setObjectName("tempview1");
+		tempview2->setObjectName("tempview2");
+		tempview3->setObjectName("tempview3");
+		//item->setIcon(QIcon(var));
+		/*int w = ui.listWidget_Iconpic->width();
+		int h = ui.listWidget_Iconpic->height();*/
+		item1->setSizeHint(QSize(w - 40, w - 160));
+		item2->setSizeHint(QSize(w - 40, w - 160));
+		item3->setSizeHint(QSize(w - 40, w - 160));
+		ui.listWidget_Iconpic->addItem(item1);
+		ui.listWidget_Iconpic->addItem(item2);
+		ui.listWidget_Iconpic->addItem(item3);
+
+		ui.listWidget_Iconpic->setItemWidget(item1, tempview1);
+		ui.listWidget_Iconpic->setItemWidget(item2, tempview2);
+		ui.listWidget_Iconpic->setItemWidget(item3, tempview3);
+		ui.graphicsView_mainview->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH0_SRC));
+		tempview1->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH1_SRC));
+		tempview2->slotShowImg(ToolClass::Mat2QImage(lineScanCam.CH2_SRC));
 		ui.listWidget_Iconpic->show();
+		//for each (auto var in selectDir)//resultPath
+		//{
+		//	//QString s = var.c_str();
+		//	//split_name = s.split("\\");
+		//	cv::String s = cv::format("%s", var.toLocal8Bit().constData());
+		//	cv::Mat src = cv::imread(s);
+		//	QImage image = ToolClass::Mat2QImage(src);
+		//	
+		//	//QImage temp = CAssist::Mat2QImage(src);
+		//	QListWidgetItem* item11 = new QListWidgetItem();
+		//	QListWidgetItem* item12 = new QListWidgetItem();
+		////	//item->setIcon(QIcon(var));
+		//	int w = ui.listWidget_Iconpic->width();
+		//	int h = ui.listWidget_Iconpic->height();
+		//	item11->setSizeHint(QSize(w-40, w-160));
+		//	item12->setSizeHint(QSize(w-40, w-160));
+		//	ui.listWidget_Iconpic->addItem(item11);
+		//	ui.listWidget_Iconpic->addItem(item12);
+		//	m_GraphicsView* tempview11 = new m_GraphicsView();
+		//	m_GraphicsView* tempview12 = new m_GraphicsView();
+		//	ui.listWidget_Iconpic->setItemWidget(item11, tempview11);
+		//	ui.listWidget_Iconpic->setItemWidget(item12, tempview12);
+		////	//cv::Mat m = ToolClass::QImage2Mat(image);
+		//	QImage image2 = ToolClass::Mat2QImage(src2);
+		//	QImage image3 = ToolClass::Mat2QImage(src3);
+		//	tempview11->slotShowImg(image2);
+		//	tempview12->slotShowImg(image3);
+		//	ui.graphicsView_mainview->slotShowImg(image);
+
+		//}
+		
 	}
 	catch (const std::exception&)
 	{

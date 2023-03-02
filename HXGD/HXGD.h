@@ -33,6 +33,7 @@
 #include <qsqlquery.h>
 #include <qsqlerror.h>
 #include "Login.hpp"
+#include "Alg.h"
 
 //#define zh_CN QString::toLocal8Bit
 
@@ -107,6 +108,11 @@ private:
 
     /*main page*/
 private:
+    HXGDAlg* hxgdAlg;
+    LineScanImages lineScanCam;
+    int iCurrentListWidgetRow = -1;
+
+ /*   LineScanImages lineScanCam_1;*/
     RecipePara currentRecipe;
     QString m_red_SheetStyle;
     QString m_green_SheetStyle;
@@ -143,8 +149,10 @@ signals:
     void signalShowImg(cv::Mat mat);
     void signalWriteCSV(QString filePath, QStringList data);
     void signalReadCSV(QString filePath, QStringList& data);
+    void signalSplitImg(cv::Mat);
 public slots:
     void slotOpenFileDialog();
+    void slotListWidgetItemDoubleClicked(QListWidgetItem* item);
     void on_pushButton_expand_clicked();
     void on_pushButton_go_clicked();
     void on_pushButton_idle_clicked();
@@ -154,6 +162,7 @@ private:
     cv::Mat matImg1;
     cv::Mat matImg2;
     ImageWidget* ImageSplicShow = NULL;
+   
     m_TCPClient* client = NULL;
     m_TCPServer* server = NULL;
 public:

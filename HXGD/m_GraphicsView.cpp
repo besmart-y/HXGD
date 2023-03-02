@@ -123,14 +123,26 @@ qreal m_GraphicsItem::getScaleValue() const
 
 
 
+m_GraphicsView::m_GraphicsView(QWidget* parent)
+{
+	scene = new QGraphicsScene(this);
+
+	int width=this->width();
+	int height=this->height();
+	scene->setSceneRect(-width / 2, -height / 2, width, height);
+	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	this->setScene(scene);
+}
+
 //**********************graphicsview******************/
-m_GraphicsView::m_GraphicsView(QWidget* parent):QGraphicsView(parent),scene(nullptr)//
+m_GraphicsView::m_GraphicsView(int width, int height, QWidget* parent):QGraphicsView(parent),scene(nullptr)//
 {
 	//this->resize(540, 240);
 	scene = new QGraphicsScene(this);
 	
-	int width = this->width();
-	int height = this->height();
+	//int w = width;//this->width();
+	//int h = height;//this->height();
 	scene->setSceneRect(-width / 2, -height / 2, width, height);
 	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
